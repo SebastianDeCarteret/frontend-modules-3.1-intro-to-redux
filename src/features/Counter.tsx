@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { decrement, increment } from "./counterSlice";
+import { decrement, increment, incrementByAmount } from "./counterSlice";
 // Write your code here
 
 function Counter() {
-  const [amount, setAmount] = useState(10);
+  const [amount, setAmount] = useState<number>(10);
   const count = useSelector((state) => (state as any).counter.value);
   const dispatch = useDispatch();
 
@@ -34,14 +34,12 @@ function Counter() {
           type="number"
           className="text-xl py-2 px-2 border-r-2 border-sky-700"
           value={amount}
-          /* e.target.value is a string, adding `+` before it is a shorthand to coerce the string into a number */
-          onChange={(e) => setAmount(+e.target.value)}
+          onChange={(e) => setAmount(Number.parseInt(e.target.value))}
         />
         <button
           className="px-4 py-2 text-xl active:scale-95"
           aria-label="Increment by Amount"
-          /* 💃 TODO 💃 */
-          /* onClick={} */
+          onClick={() => dispatch(incrementByAmount(amount))}
         >
           Increment by Amount
         </button>
